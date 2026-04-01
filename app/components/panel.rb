@@ -1,5 +1,4 @@
 # app/components/panel.rb
-require_relative "base"
 
 module Components
   class Panel < Base

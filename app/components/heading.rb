@@ -1,5 +1,4 @@
 # app/components/heading.rb
-require_relative "base"
 
 module Components
   class Heading < Base
