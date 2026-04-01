@@ -1,5 +1,4 @@
 # app/components/link.rb
-require_relative "base"
 
 module Components
   class Link < Base
