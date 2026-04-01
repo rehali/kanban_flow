@@ -1,5 +1,4 @@
 # app/components/table.rb
-require_relative "base"
 
 module Components
   class Table < Base

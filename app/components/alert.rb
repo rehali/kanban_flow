@@ -1,5 +1,5 @@
 # app/components/alert.rb
-require_relative "base"
+
 module Components
   class Alert < Base
     ICONS = {
