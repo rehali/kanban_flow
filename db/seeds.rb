@@ -1,9 +1,20 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+# db/seeds.rb
+alice = User.create!(name: "Alice", email: "alice@example.com")
+bob   = User.create!(name: "Bob",   email: "bob@example.com")
+
+board = Board.create!(name: "KanbanFlow Development", user: alice)
+
+Membership.create!(user: alice, board: board, role: :admin)
+Membership.create!(user: bob,   board: board, role: :member)
+
+todo  = board.columns.create!(name: "To Do",        position: 0)
+doing = board.columns.create!(name: "In Progress",  position: 1)
+done  = board.columns.create!(name: "Done",         position: 2)
+
+todo.cards.create!(title: "Set up Rails app",     position: 0)
+todo.cards.create!(title: "Install Phlex",        position: 1)
+todo.cards.create!(title: "Build component library", position: 2)
+
+doing.cards.create!(title: "Build AppLayout",     position: 0)
+
+done.cards.create!(title: "Create Rails app",     position: 0)

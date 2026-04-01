@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
 class Components::Base < Phlex::HTML
-  # Include any helpers you want to be available across all components
   include Phlex::Rails::Helpers::Routes
+  extend Literal::Properties
 
-  if Rails.env.development?
-    def before_template
-      comment { "Before #{self.class.name}" }
-      super
-    end
+  private
+
+  def class_names(*classes)
+    classes.flatten.compact.reject(&:empty?).join(" ")
   end
 end

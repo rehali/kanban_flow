@@ -1,15 +1,12 @@
-# app/components/panel.rb
-require_relative "base"
+# frozen_string_literal: true
 
-module Components
-  class Panel < Base
-    prop :title, String
+class Components::Panel < Components::Base
+  prop :title, String
 
-    def view_template
-      section(class: "section-border") do
-        h4 { @title }
-        yield
-      end
+  def view_template
+    div(class: "rounded-lg border border-gray-200 bg-white p-4") do
+      h4(class: "font-semibold text-gray-900 mb-3") { @title }
+      yield
     end
   end
 end
