@@ -1,5 +1,4 @@
 # app/components/badge.rb
-require_relative "base"
 
 module Components
   class Badge < Base

@@ -1,5 +1,4 @@
 # app/components/avatar.rb
-require_relative "base"
 
 module Components
   class Avatar < Base

@@ -1,5 +1,4 @@
 # app/components/card.rb
-require_relative "base"
 
 module Components
   class Card < Base

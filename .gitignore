@@ -36,3 +36,7 @@
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
+/.idea/.gitignore
+/.idea/kanban_flow.iml
+/.idea/modules.xml
+/.idea/vcs.xml
