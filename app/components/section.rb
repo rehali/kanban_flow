@@ -1,5 +1,4 @@
 # app/components/section.rb
-require_relative "base"
 
 module Components
   class Section < Base

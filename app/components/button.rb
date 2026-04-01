@@ -1,5 +1,4 @@
 # app/components/button.rb
-require_relative "base"
 
 module Components
   class Button < Base
