@@ -3,8 +3,6 @@ Rails.application.routes.draw do
     mount Lookbook::Engine, at: "/lookbook"
   end
 
-  root "home#index"
-  get "about", to: "home#about"
-
-  get "up" => "rails/health#show", as: :rails_health_check
+  resources :boards, only: [:index, :show, :new, :create]
+  root "boards#index"
 end
