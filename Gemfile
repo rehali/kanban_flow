@@ -59,6 +59,9 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem "lookbook", ">= 2.3.14"
+  gem "listen"
+  gem "actioncable"
 end
 
 group :test do
