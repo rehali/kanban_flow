@@ -32,7 +32,7 @@ class ButtonPreview < Lookbook::Preview
   # @param disabled toggle
   def interactive(variant: :primary, label: "Click me", disabled: false)
     render Components::Button.new(
-      label:    label,
+      label:    label.to_s.strip.empty? ? "Click me" : label,
       variant:  variant.to_sym,
       disabled: disabled
     )

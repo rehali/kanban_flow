@@ -6,7 +6,7 @@ class CardPreview < Lookbook::Preview
     }
   end
   def full_slots
-    render Components::Card.new.tap { |card|
+    render Components::Card.new { |card|
       card.header { "Custom header" }
       card.body   { "Card body content." }
       card.footer { "Footer content" }
