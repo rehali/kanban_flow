@@ -1,7 +1,10 @@
-# test/components/previews/button_preview.rb
 class ButtonPreview < Lookbook::Preview
   layout "lookbook/preview"
 
+  # @notes
+  # Use **Button** for actions that trigger server-side behaviour.
+  # Use **Link** for navigation.
+  # Buttons always include **aria-disabled** for accessibility.
   def default
     render Components::Button.new(label: "Click me")
   end

@@ -1,4 +1,3 @@
-# test/components/previews/breadcrumb_preview.rb
 class BreadcrumbPreview < Lookbook::Preview
   def two_levels
     render Components::Breadcrumb.new { |b|
