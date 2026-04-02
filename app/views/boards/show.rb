@@ -5,6 +5,11 @@ class Views::Boards::Show < Views::Base
     @board = board
   end
   def view_template
+    Breadcrumb() do |b|
+      b.item "Boards", url: boards_path
+      b.item @board.name
+    end
+
     div(class: "flex items-center justify-between mb-6") do
       h1(class: "text-2xl font-bold text-gray-900") { @board.name }
       a(href: boards_path,
