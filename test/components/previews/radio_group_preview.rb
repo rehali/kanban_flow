@@ -48,7 +48,7 @@ class RadioGroupPreview < Lookbook::Preview
       field:   :role,
       label:   "Role",
       options: [["Administrator", "admin"], ["Member", "member"]],
-      error:   true
+      error:   "no role selected"
     )
   end
 end

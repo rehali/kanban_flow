@@ -1,11 +1,7 @@
 
-class Components::RadioGroup < Components::Base
-  prop :field,       Symbol
-  prop :label,       _Nilable(String), default: -> { nil }
+class Components::RadioGroup < Components::FormField
   prop :options,     _Array(_Any)
   prop :selected,    _Nilable(String), default: -> { nil }
-  prop :hint,        _Nilable(String), default: -> { nil }
-  prop :error,       _Boolean,         default: -> { false }
   prop :orientation, Symbol,           default: -> { :vertical }
 
   def view_template

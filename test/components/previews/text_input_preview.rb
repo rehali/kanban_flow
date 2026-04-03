@@ -8,6 +8,14 @@ class TextInputPreview < Lookbook::Preview
     )
   end
 
+  def with_value
+    render Components::TextInput.new(
+      field: :name,
+      label: "Board name",
+      value: "KanbanFlow"
+    )
+  end
+
   def with_hint
     render Components::TextInput.new(
       field: :name,
@@ -16,12 +24,33 @@ class TextInputPreview < Lookbook::Preview
     )
   end
 
-  def with_error
+  # error: nil — no error, normal styling
+  def no_error
     render Components::TextInput.new(
       field: :name,
       label: "Board name",
-      error: true,
-      value: ""
+      error: nil
+    )
+  end
+
+  # error: "" — red border only, no message
+  # use this when ErrorSummary handles the message at the top of the form
+  def error_highlight_only
+    render Components::TextInput.new(
+      field: :name,
+      label: "Board name",
+      value: "",
+      error: ""
+    )
+  end
+
+  # error: "message" — red border plus inline message
+  def error_with_message
+    render Components::TextInput.new(
+      field: :name,
+      label: "Board name",
+      value: "",
+      error: "can't be blank"
     )
   end
 

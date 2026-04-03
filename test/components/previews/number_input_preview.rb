@@ -49,7 +49,7 @@ class NumberInputPreview < Lookbook::Preview
     render Components::NumberInput.new(
       field: :quantity,
       label: "Quantity",
-      error: true,
+      error: "",
       value: 0
     )
   end

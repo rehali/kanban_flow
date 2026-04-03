@@ -24,7 +24,7 @@ class SelectPreview < Lookbook::Preview
       label:   "Role",
       options: [["Administrator", "admin"], ["Member", "member"]],
       prompt:  "Select a role",
-      error:   true
+      error:   "no role selected"
     )
   end
 end

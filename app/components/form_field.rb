@@ -3,24 +3,39 @@ class Components::FormField < Components::Base
   prop :field,    Symbol
   prop :label,    _Nilable(String), default: -> { nil }
   prop :hint,     _Nilable(String), default: -> { nil }
-  prop :error,    _Boolean,         default: -> { false }
+  prop :error,    _Nilable(String), default: -> { nil }
   prop :required, _Boolean,         default: -> { false }
 
   def view_template
     div(class: "space-y-1") do
-      render_label if @label
+      render_label         if @label
       render_input
-      render_hint  if @hint
+      render_error_message if show_error_message?
+      render_hint          if @hint
     end
   end
 
   private
+
+  def error?
+    !@error.nil?
+  end
+
+  def show_error_message?
+    error? && !@error.empty?
+  end
 
   def render_label
     label(for: @field, class: "block text-sm font-medium text-gray-700") do
       plain @label
       abbr(title: "required", class: "ml-1 text-red-500") { "*" } if @required
     end
+  end
+
+  def render_error_message
+    p(class: "text-xs text-red-600",
+      id:    "#{@field}_error",
+      role:  "alert") { @error }
   end
 
   def render_hint
@@ -38,7 +53,7 @@ class Components::FormField < Components::Base
   end
 
   def error_classes
-    @error ? "border-red-300 focus:ring-red-500"
+    error? ? "border-red-300 focus:ring-red-500"
       : "border-gray-300 focus:ring-blue-500"
   end
 
@@ -47,6 +62,6 @@ class Components::FormField < Components::Base
   end
 
   def aria_attrs
-    { invalid: @error.to_s }
+    { invalid: error?.to_s }
   end
 end

@@ -28,7 +28,7 @@ class TextAreaPreview < Lookbook::Preview
     render Components::TextArea.new(
       field: :description,
       label: "Description",
-      error: true,
+      error: "provide a description",
       value: ""
     )
   end
