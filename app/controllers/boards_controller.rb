@@ -18,17 +18,34 @@ class BoardsController < ApplicationController
     if @board.save
       redirect_to boards_path, notice: "Board created."
     else
-      render Views::Boards::New.new(board: @board), status: :unprocessable_entity
+      render Views::Boards::New.new(board: @board)
     end
+  end
+
+  def edit
+    render Views::Boards::Edit.new(board: board)
+  end
+
+  def update
+    if board.update(board_params)
+      redirect_to boards_path, notice: "Board updated."
+    else
+      render Views::Boards::Edit.new(board: board)
+    end
+  end
+
+  def destroy
+    board.destroy
+    redirect_to boards_path, notice: "Board deleted."
   end
 
   private
 
-  def board_params
-    params.require(:board).permit(:name)
-  end
-
   def board
     @board ||= Board.find(params[:id])
+  end
+
+  def board_params
+    params.expect(board: Views::Boards::BoardForm.permitted)
   end
 end

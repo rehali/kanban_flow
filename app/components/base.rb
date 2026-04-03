@@ -3,6 +3,9 @@
 class Components::Base < Phlex::HTML
   include Phlex::Rails::Helpers::Routes
   include Phlex::Rails::Helpers::FormWith
+
+  register_value_helper :flash
+
   extend Literal::Properties
 
   private

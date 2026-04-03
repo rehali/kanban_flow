@@ -7,8 +7,8 @@ class Components::Checkbox < Components::FormField
     div(class: "space-y-1") do
       input(
         type: "checkbox",
-        id: @field,
-        name: @field,
+        id: field_id,
+        name: field_name,
         value: @value,
         checked: @checked,
         class: "w-4 h-4 mr-2 rounded border-gray-300 text-blue-600 " \

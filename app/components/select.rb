@@ -9,8 +9,8 @@ class Components::Select < Components::FormField
   def render_input
     div(class: "relative") do
       select(
-        id:       @field,
-        name:     @field,
+        id:       field_id,
+        name:     field_name,
         required: @required,
         class:    "#{input_classes} appearance-none pr-8",
         aria:     aria_attrs

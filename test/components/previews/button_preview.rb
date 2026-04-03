@@ -1,43 +1,56 @@
+# test/components/previews/button_preview.rb
 class ButtonPreview < Lookbook::Preview
-  layout "lookbook/preview"
-
-  # @notes
-  # Use **Button** for actions that trigger server-side behaviour.
-  # Use **Link** for navigation.
-  # Buttons always include **aria-disabled** for accessibility.
+  # Primary navigation link
   def default
-    render Components::Button.new(label: "Click me")
-  end
-  def primary
-    render Components::Button.new(label: "Primary", variant: :primary)
-  end
-  def secondary
-    render Components::Button.new(label: "Secondary", variant: :secondary)
-  end
-  def danger
-    render Components::Button.new(label: "Delete", variant: :danger)
-  end
-  def ghost
-    render Components::Button.new(label: "Skip", variant: :ghost)
-  end
-  def disabled
-    render Components::Button.new(label: "Disabled", disabled: true)
-  end
-  def small
-    render Components::Button.new(label: "Small", size: :sm)
-  end
-  def large
-    render Components::Button.new(label: "Large", size: :lg)
+    render Components::Button.new(label: "New Board", href: "#")
   end
 
-  # @param variant select { choices: [primary, secondary, danger, ghost] }
+  def secondary
+    render Components::Button.new(label: "Secondary", href: "#", variant: :secondary)
+  end
+
+  def outline
+    render Components::Button.new(label: "Cancel", href: "#", variant: :outline)
+  end
+
+  def danger_link
+    render Components::Button.new(label: "Delete board", href: "#",
+                                  variant: :danger,
+                                  data: { turbo_method: :delete,
+                                          turbo_confirm: "Are you sure?" })
+  end
+
+  def submit
+    render Components::Button.new(label: "Create board", type: "submit")
+  end
+
+  def stimulus_trigger
+    render Components::Button.new(label: "Open modal", type: "button",
+                                  data: { action: "click->modal#open" })
+  end
+
+  def disabled
+    render Components::Button.new(label: "Unavailable", type: "submit",
+                                  disabled: true)
+  end
+
+  def small
+    render Components::Button.new(label: "Small", href: "#", size: :sm)
+  end
+
+  def large
+    render Components::Button.new(label: "Large", href: "#", size: :lg)
+  end
+
   # @param label text
-  # @param disabled toggle
-  def interactive(variant: :primary, label: "Click me", disabled: false)
+  # @param variant select { choices: [primary, secondary, danger, outline] }
+  # @param size select { choices: [sm, md, lg] }
+  def interactive(label: "Click me", variant: :primary, size: :md)
     render Components::Button.new(
-      label:    label.to_s.strip.empty? ? "Click me" : label,
-      variant:  variant.to_sym,
-      disabled: disabled
+      label:   label.to_s.strip.empty? ? "Click me" : label,
+      variant: variant.to_sym,
+      size:    size.to_sym,
+      href:    "#"
     )
   end
 end

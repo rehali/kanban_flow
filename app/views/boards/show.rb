@@ -1,27 +1,30 @@
 # app/views/boards/show.rb
 class Views::Boards::Show < Views::Base
   def page_title = @board.name
+
   def initialize(board:)
     @board = board
   end
+
   def view_template
     Breadcrumb() do |b|
       b.item "Boards", url: boards_path
       b.item @board.name
     end
 
-    div(class: "flex items-center justify-between mb-6") do
+    div(class: "flex items-center justify-between mt-4 mb-6") do
       h1(class: "text-2xl font-bold text-gray-900") { @board.name }
-      a(href: boards_path,
-        class: "text-sm text-blue-600 hover:underline") { "← Back to boards" }
-    end
-    div(class: "grid grid-cols-1 md:grid-cols-3 gap-4") do
-      @board.columns.each do |column|
-        render_column(column)
+      Button(label: "← Back to boards", href: boards_path, variant: :outline)
+      div(class: "flex items-center gap-3") do
+        Button(label: "Edit", href: edit_board_path(@board), variant: :secondary)
+        Button(label: "Delete board", href: board_path(@board), variant: :danger,
+               data: { turbo_method: :delete, turbo_confirm: "Delete #{@board.name}? This cannot be undone." })
       end
     end
   end
+
   private
+
   def render_column(column)
     div(class: "bg-gray-100 rounded-lg p-4") do
       h2(class: "font-semibold text-gray-700 mb-3") { column.name }

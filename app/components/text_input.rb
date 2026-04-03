@@ -9,8 +9,8 @@ class Components::TextInput < Components::FormField
   def render_input
     input(
       type:        @type,
-      id:          @field,
-      name:        @field,
+      id:          field_id,
+      name:        field_name,
       value:       @value.to_s,
       placeholder: @placeholder,
       required:    @required,

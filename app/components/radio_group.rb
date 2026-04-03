@@ -10,14 +10,16 @@ class Components::RadioGroup < Components::FormField
       div(class: option_wrapper_classes) do
         @options.each do |opt|
           label_text, value = opt.is_a?(Array) ? opt : [opt.to_s, opt.to_s]
-          label(class: "flex items-center gap-2 text-sm text-gray-700 cursor-pointer") do
+          option_id = @form ? @form.field_id(@field, value) : "#{@field}_#{value}"
+
+          label(for: option_id, class: "flex items-center gap-2 ...") do
             input(
               type:    "radio",
-              name:    @field,
+              id:      option_id,
+              name:    field_name,    # shared across all options
               value:   value,
               checked: value.to_s == @selected.to_s,
-              class:   "w-4 h-4 border-gray-300 text-blue-600 " \
-                "focus:ring-blue-500 focus:ring-offset-1 cursor-pointer"
+              class:   "..."
             )
             plain label_text
           end

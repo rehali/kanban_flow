@@ -7,11 +7,7 @@ class Views::Boards::Index < Views::Base
   def view_template
     div(class: "flex items-center justify-between mb-6") do
       h1(class: "text-2xl font-bold text-gray-900") { "Your Boards" }
-      a(href: new_board_path,
-        class: "inline-flex items-center rounded-md bg-blue-600 px-4 py-2 " \
-          "text-white font-medium hover:bg-blue-700 text-sm") do
-        plain "+ New Board"
-      end
+      Button(label: "+ New Board", href: new_board_path)
     end
     if @boards.empty?
       EmptyState(

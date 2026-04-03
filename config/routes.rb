@@ -3,6 +3,6 @@ Rails.application.routes.draw do
     mount Lookbook::Engine, at: "/lookbook"
   end
 
-  resources :boards, only: [:index, :show, :new, :create]
+  resources :boards
   root "boards#index"
 end

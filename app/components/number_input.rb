@@ -10,8 +10,8 @@ class Components::NumberInput < Components::FormField
   def render_input
     input(
       type:  "number",
-      id:    @field,
-      name:  @field,
+      id:    field_id,
+      name:  field_name,
       value: @value,
       min:   @min,
       max:   @max,

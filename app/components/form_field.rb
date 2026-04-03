@@ -1,6 +1,7 @@
 # app/components/form_field.rb
 class Components::FormField < Components::Base
   prop :field,    Symbol
+  prop :form,     _Nilable(_Any), default: -> { nil }
   prop :label,    _Nilable(String), default: -> { nil }
   prop :hint,     _Nilable(String), default: -> { nil }
   prop :error,    _Nilable(String), default: -> { nil }
@@ -17,6 +18,14 @@ class Components::FormField < Components::Base
 
   private
 
+  def field_id
+    @form ? @form.field_id(@field) : @field.to_s
+  end
+
+  def field_name
+    @form ? @form.field_name(@field) : @field.to_s
+  end
+
   def error?
     !@error.nil?
   end
@@ -26,7 +35,7 @@ class Components::FormField < Components::Base
   end
 
   def render_label
-    label(for: @field, class: "block text-sm font-medium text-gray-700") do
+    label(for: field_id, class: "block text-sm font-medium text-gray-700") do
       plain @label
       abbr(title: "required", class: "ml-1 text-red-500") { "*" } if @required
     end

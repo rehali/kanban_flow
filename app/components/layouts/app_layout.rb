@@ -25,6 +25,7 @@ class Components::Layouts::AppLayout < Components::Base
       end
       body(class: "bg-gray-50 text-gray-900 min-h-screen flex flex-col") do
         render_nav
+        render_flash
         main(class: "mx-auto max-w-7xl px-4 py-8 flex-1 w-full") { yield }
         render_footer
       end
@@ -48,4 +49,13 @@ class Components::Layouts::AppLayout < Components::Base
       end
     end
   end
+
+  def render_flash
+    return unless flash[:notice] || flash[:alert]
+    div(class: "mx-auto max-w-7xl px-4 pt-4 space-y-2") do
+      Alert(message: flash[:notice], variant: :success) if flash[:notice]
+      Alert(message: flash[:alert],  variant: :danger)  if flash[:alert]
+    end
+  end
+
 end

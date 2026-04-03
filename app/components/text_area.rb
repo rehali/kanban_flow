@@ -6,8 +6,8 @@ class Components::TextArea < Components::FormField
   private
   def render_input
     textarea(
-      id:          @field,
-      name:        @field,
+      id:          field_id,
+      name:        field_name,
       rows:        @rows,
       placeholder: @placeholder,
       required:    @required,
