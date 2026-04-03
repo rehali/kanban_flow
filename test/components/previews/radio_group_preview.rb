@@ -43,12 +43,22 @@ class RadioGroupPreview < Lookbook::Preview
     )
   end
 
+  def with_error_message
+    render Components::RadioGroup.new(
+      field:   :role,
+      label:   "Role",
+      options: [["Administrator", "admin"], ["Member", "member"]],
+      error:   "No role selected"
+    )
+  end
+
   def with_error
     render Components::RadioGroup.new(
       field:   :role,
       label:   "Role",
       options: [["Administrator", "admin"], ["Member", "member"]],
-      error:   "no role selected"
+      error:   ""
     )
   end
+
 end

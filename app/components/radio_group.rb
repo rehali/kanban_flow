@@ -24,8 +24,11 @@ class Components::RadioGroup < Components::FormField
         end
       end
       p(class: "text-xs text-gray-500 mt-1") { @hint } if @hint
-      p(class: "text-xs text-red-600 mt-1",
-        role:  "alert") { "Please select an option." } if @error
+
+      if @error
+        msg = @error.strip.length > 0 ? @error : "Please select an option"
+        p(class: "text-xs text-red-600 mt-1", role:  "alert") { msg }
+      end
     end
   end
 
