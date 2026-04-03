@@ -35,20 +35,20 @@ class Components::FormField < Components::Base
   end
 
   def render_label
-    label(for: field_id, class: "block text-sm font-medium text-gray-700") do
+    label(for: field_id, class: "block text-sm font-medium text-text") do
       plain @label
-      abbr(title: "required", class: "ml-1 text-red-500") { "*" } if @required
+      abbr(title: "required", class: "ml-1 text-danger") { "*" } if @required
     end
   end
 
   def render_error_message
-    p(class: "text-xs text-red-600",
+    p(class: "text-xs text-danger",
       id:    "#{@field}_error",
       role:  "alert") { @error }
   end
 
   def render_hint
-    p(class: "text-xs text-gray-500") { @hint }
+    p(class: "text-xs text-text-muted") { @hint }
   end
 
   def render_input
@@ -56,14 +56,14 @@ class Components::FormField < Components::Base
   end
 
   def base_input_classes
-    "w-full rounded-md border px-3 py-2 text-sm bg-white " \
-      "text-gray-900 placeholder:text-gray-400 " \
+    "w-full rounded-md border px-3 py-2 text-sm bg-surface " \
+      "text-text placeholder:text-text-subtle " \
       "focus:outline-none focus:ring-2 focus:ring-offset-1"
   end
 
   def error_classes
-    error? ? "border-red-300 focus:ring-red-500"
-      : "border-gray-300 focus:ring-blue-500"
+    error? ? "border-danger focus:ring-danger"
+      : "border-border focus:ring-primary"
   end
 
   def input_classes

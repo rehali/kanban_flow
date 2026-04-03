@@ -1,1 +1,56 @@
+/* app/assets/tailwind/application.css */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
+
+@theme {
+    /* Primary action colour */
+    --color-primary:         #2563eb;
+    --color-primary-hover:   #1d4ed8;
+    --color-primary-ring:    #3b82f6;
+
+    /* Secondary action colour */
+    --color-secondary:       #16a34a;
+    --color-secondary-hover: #15803d;
+    --color-secondary-ring:  #22c55e;
+
+    /* Danger / destructive actions */
+    --color-danger:          #dc2626;
+    --color-danger-hover:    #b91c1c;
+    --color-danger-ring:     #f87171;
+
+    /* Outline actions */
+    --color-outline-text:    #374151;
+    --color-outline-border:  #d1d5db;
+    --color-outline-hover:   #f9fafb;
+
+    /* Surfaces */
+    --color-surface:         #ffffff;
+    --color-surface-alt:     #f9fafb;
+    --color-surface-raised:  #ffffff;
+    /* Borders */
+    --color-border:          #e5e7eb;
+    --color-border-strong:   #d1d5db;
+    /* Text */
+    --color-text:            #111827;
+    --color-text-muted:      #6b7280;
+    --color-text-subtle:     #9ca3af;
+    /* Status colours */
+    --color-success:         #16a34a;
+    --color-success-bg:      #f0fdf4;
+    --color-warning:         #d97706;
+    --color-warning-bg:      #fffbeb;
+    --color-info:            #2563eb;
+    --color-info-bg:         #eff6ff;
+
+    /* Typography */
+    --font-sans:  "Inter", ui-sans-serif, system-ui, sans-serif;
+    --font-mono:  "JetBrains Mono", ui-monospace, monospace;
+
+    /* Border radius */
+    --radius-sm:  0.25rem;
+    --radius-md:  0.375rem;
+    --radius-lg:  0.5rem;
+    --radius-xl:  0.75rem;
+
+
+}

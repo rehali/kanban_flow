@@ -24,7 +24,7 @@ class Components::Select < Components::FormField
         end
       end
 
-      div(class: "pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-400") do
+      div(class: "pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-text-muted") do
         span(class: "text-lg rotate-90 inline-block leading-none") { "›" }
       end
     end

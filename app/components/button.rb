@@ -7,14 +7,14 @@ class Components::Button < Components::Base
     "disabled:opacity-50 disabled:pointer-events-none"
 
   VARIANTS = {
-    primary:   "bg-blue-600 text-white border-transparent hover:bg-blue-700 " \
-      "focus:ring-blue-500",
-    secondary: "bg-green-600 text-white border-transparent hover:bg-green-700 " \
-      "focus:ring-gray-300",
-    outline:   "bg-transparent text-gray-700 border-gray-300 " \
-      "hover:bg-gray-50 focus:ring-gray-300",
-    danger:    "bg-red-600 text-white border-transparent hover:bg-red-700 " \
-      "focus:ring-red-500",
+    primary:   "bg-primary text-white border-transparent hover:bg-primary-hover " \
+      "focus:ring-primary-ring",
+    secondary: "bg-secondary text-white border-transparent hover:bg-secondary-hover " \
+      "focus:ring-secondary-ring",
+    outline:   "bg-transparent text-outline-text border-outline-border " \
+      "hover:bg-outline-hover focus:ring-outline-border",
+    danger:    "bg-danger text-white border-transparent hover:bg-danger-hover " \
+      "focus:ring-danger-ring",
   }.freeze
 
   SIZES = {

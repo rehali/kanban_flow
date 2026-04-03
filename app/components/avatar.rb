@@ -30,7 +30,7 @@ class Components::Avatar < Components::Base
   def avatar_classes
     class_names(
       "inline-flex items-center justify-center rounded-full",
-      "bg-gray-200 text-gray-700 font-medium overflow-hidden",
+      "bg-surface-alt text-text-muted font-medium overflow-hidden",
       SIZES[@size]
     )
   end
