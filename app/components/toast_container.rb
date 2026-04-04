@@ -4,7 +4,7 @@ class Components::ToastContainer < Components::Base
     div(
       id:    "toast-container",
       class: "fixed bottom-4 right-4 z-50 flex flex-col gap-2 pointer-events-none",
-      data:  { controller: "toast-container" },
+      data:  { controller: "toast-container", turbo_permanent: true },
       aria:  { live: "polite", atomic: false }
     )
   end

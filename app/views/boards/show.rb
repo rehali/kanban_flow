@@ -7,6 +7,13 @@ class Views::Boards::Show < Views::Base
   end
 
   def view_template
+    render_header
+    render_board
+  end
+
+  private
+
+  def render_header
     Breadcrumb() do |b|
       b.item "Boards", url: boards_path
       b.item @board.name
@@ -14,22 +21,35 @@ class Views::Boards::Show < Views::Base
 
     div(class: "flex items-center justify-between mt-4 mb-6") do
       h1(class: "text-2xl font-bold text-text") { @board.name }
-      Button(label: "← Back to boards", href: boards_path, variant: :outline)
-      div(class: "flex items-center gap-3") do
-        Button(label: "Edit", href: edit_board_path(@board), variant: :secondary)
-        Button(label: "Delete board", href: board_path(@board), variant: :danger,
-               data: { turbo_method: :delete, turbo_confirm: "Delete #{@board.name}? This cannot be undone." })
+      Dropdown(label: "Board actions", align: :right) do |d|
+        d.item "Edit board",   url: edit_board_path(@board)
+        d.item "Delete board", url: board_path(@board), method: :delete
       end
     end
   end
 
-  private
+  def render_board
+    div(
+      id:    dom_id(@board),
+      class: "flex gap-4 overflow-x-auto pb-4"
+    ) do
+      @board.columns.ordered.each do |column|
+        KanbanColumn(column: column)
+      end
+      render_add_column
+    end
+  end
 
-  def render_column(column)
-    div(class: "bg-gray-100 rounded-lg p-4") do
-      h2(class: "font-semibold text-gray-700 mb-3") { column.name }
-      p(class: "text-sm text-gray-400") do
-        plain "#{column.cards.count} cards · Full board view in Module 9."
+  def render_add_column
+    div(class: "w-72 shrink-0") do
+      a(
+        href:  new_board_column_path(@board),
+        class: "flex items-center gap-2 text-sm text-text-muted " \
+          "hover:text-text bg-surface-alt/50 rounded-lg p-3 " \
+          "border-2 border-dashed border-border " \
+          "hover:border-border-strong"
+      ) do
+        plain "+ Add column"
       end
     end
   end

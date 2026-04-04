@@ -20,6 +20,8 @@ class Views::Layouts::AppLayout < Components::Base
         title { @title }
         csrf_meta_tags
         csp_meta_tag
+        meta(name: "turbo-refresh-method", content: "morph")
+        meta(name: "turbo-refresh-scroll", content: "preserve")
         stylesheet_link_tag "tailwind", "data-turbo-track": "reload"
         stylesheet_link_tag "application", "data-turbo-track": "reload"
         javascript_importmap_tags

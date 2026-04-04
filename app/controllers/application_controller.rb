@@ -6,4 +6,12 @@ class ApplicationController < ActionController::Base
   stale_when_importmap_changes
 
   layout false
+
+  private
+
+  def current_user
+    @current_user ||= User.first
+  end
+
+  helper_method :current_user
 end
