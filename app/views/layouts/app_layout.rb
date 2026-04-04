@@ -29,6 +29,7 @@ class Views::Layouts::AppLayout < Components::Base
         render_flash
         main(class: "mx-auto max-w-7xl px-4 py-8 flex-1 w-full") { yield }
         render_footer
+        Components::ToastContainer()
       end
     end
   end
