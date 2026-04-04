@@ -1,6 +1,6 @@
-# app/components/layouts/app_layout.rb
+# app/views/layouts/app_layout.rb
 #
-class Components::Layouts::AppLayout < Components::Base
+class Views::Layouts::AppLayout < Components::Base
   include Phlex::Rails::Helpers::CSRFMetaTags
   include Phlex::Rails::Helpers::CSPMetaTag
   include Phlex::Rails::Helpers::StylesheetLinkTag
@@ -16,6 +16,7 @@ class Components::Layouts::AppLayout < Components::Base
       head do
         meta(charset: "UTF-8")
         meta(name: "viewport", content: "width=device-width,initial-scale=1")
+        meta(name: "color-scheme", content: "light dark")
         title { @title }
         csrf_meta_tags
         csp_meta_tag
@@ -23,7 +24,7 @@ class Components::Layouts::AppLayout < Components::Base
         stylesheet_link_tag "application", "data-turbo-track": "reload"
         javascript_importmap_tags
       end
-      body(class: "bg-gray-50 text-gray-900 min-h-screen flex flex-col") do
+      body(class: "bg-surface text-text min-h-screen flex flex-col") do
         render_nav
         render_flash
         main(class: "mx-auto max-w-7xl px-4 py-8 flex-1 w-full") { yield }
@@ -35,12 +36,20 @@ class Components::Layouts::AppLayout < Components::Base
   private
 
   def render_nav
-    nav(class: "bg-white border-b border-gray-200 px-4 py-3") do
+    nav(class: "bg-surface border-b border-border px-4 py-3") do
       div(class: "mx-auto max-w-7xl flex items-center justify-between") do
-        a(href: root_path, class: "font-bold text-lg text-gray-900") { "KanbanFlow" }
+        a(href: root_path, class: "font-bold text-lg text-text") { "KanbanFlow" }
+        div(
+          class: "flex items-center gap-2",
+          data:  { controller: "theme-toggle" }
+        ) do
+          ThemeSelector()
+          ThemeToggle()
+        end
       end
     end
   end
+
 
   def render_footer
     footer(class: "border-t border-gray-200 mt-12 py-4 px-4") do

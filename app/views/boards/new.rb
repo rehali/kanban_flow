@@ -10,7 +10,7 @@ class Views::Boards::New < Views::Base
       b.item "New Board"
     end
     div(class: "max-w-lg mt-6") do
-      h1(class: "text-2xl font-bold text-gray-900 mb-6") { "New Board" }
+      h1(class: "text-2xl font-bold text-text mb-6") { "New Board" }
       render Views::Boards::BoardForm.new(board: @board)
     end
   end

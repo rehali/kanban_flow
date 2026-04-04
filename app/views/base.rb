@@ -12,7 +12,7 @@ class Views::Base < Components::Base
   end
 
   def around_template
-    render Components::Layouts::AppLayout.new(title: page_title) do
+    render Views::Layouts::AppLayout.new(title: page_title) do
       super
     end
   end

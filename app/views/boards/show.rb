@@ -13,7 +13,7 @@ class Views::Boards::Show < Views::Base
     end
 
     div(class: "flex items-center justify-between mt-4 mb-6") do
-      h1(class: "text-2xl font-bold text-gray-900") { @board.name }
+      h1(class: "text-2xl font-bold text-text") { @board.name }
       Button(label: "← Back to boards", href: boards_path, variant: :outline)
       div(class: "flex items-center gap-3") do
         Button(label: "Edit", href: edit_board_path(@board), variant: :secondary)

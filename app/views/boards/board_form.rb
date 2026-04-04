@@ -21,7 +21,7 @@ class Views::Boards::BoardForm < Components::Base
           label: @board.persisted? ? "Update board" : "Create board",
           type:  "submit"
         )
-        Button(label: "Cancel", variant: :ghost, href: boards_path)
+        Button(label: "Cancel", variant: :outline, href: boards_path)
       end
     end
   end
