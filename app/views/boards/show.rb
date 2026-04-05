@@ -7,6 +7,8 @@ class Views::Boards::Show < Views::Base
   end
 
   def view_template
+    turbo_stream_from @board
+
     render_header
     render_board
   end
@@ -31,25 +33,46 @@ class Views::Boards::Show < Views::Base
   def render_board
     div(
       id:    dom_id(@board),
-      class: "flex gap-4 overflow-x-auto pb-4"
+      class: "flex gap-4 overflow-x-auto pb-4",
+      data:  {
+        controller:              "board",
+        board_cards_url_value:   cards_positions_path,
+        board_columns_url_value: columns_positions_path
+      }
     ) do
-      @board.columns.ordered.each do |column|
-        KanbanColumn(column: column)
-      end
+      @board.columns.ordered.each { |column| KanbanColumn(column: column) }
       render_add_column
     end
   end
 
   def render_add_column
-    div(class: "w-72 shrink-0") do
-      a(
-        href:  new_board_column_path(@board),
+    div(
+      class: "w-72 shrink-0",
+      data:  { controller: "column-form" }
+    ) do
+      button(
+        type:  "button",
         class: "flex items-center gap-2 text-sm text-text-muted " \
           "hover:text-text bg-surface-alt/50 rounded-lg p-3 " \
-          "border-2 border-dashed border-border " \
-          "hover:border-border-strong"
+          "border-2 border-dashed border-border w-full " \
+          "hover:border-border-strong",
+        data:  {
+          column_form_target: "display",
+          action:             "click->column-form#showForm"
+        }
       ) do
         plain "+ Add column"
+      end
+
+      div(
+        hidden: true,
+        class:  "bg-surface-alt/50 rounded-lg p-3 border-2 border-dashed border-border",
+        data:   { column_form_target: "form" }
+      ) do
+        render Views::Columns::ColumnForm.new(
+          column: @board.columns.build,
+          board:  @board
+        )
       end
     end
   end

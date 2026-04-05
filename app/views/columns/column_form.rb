@@ -1,29 +1,39 @@
 # app/views/columns/column_form.rb
 class Views::Columns::ColumnForm < Components::Base
-  PERMITTED = [:name].freeze
-  def self.permitted = PERMITTED
-
   prop :column, ::Column
   prop :board,  _Nilable(::Board), default: -> { nil }
+  PERMITTED = [:name].freeze
+  def self.permitted = PERMITTED
 
   def view_template
     form_with(
       model: @column.persisted? ? @column : [@board, @column],
-      class: "space-y-4"
+      class: "space-y-2",
+      data:  { action: "submit->column-form#submit" }
     ) do |f|
-      TextInput(
-        form:        f,
-        field:       :name,
-        label:       "Column name",
-        value:       @column.name,
-        placeholder: "e.g. To Do",
-        error:       @column.errors[:name].first,
-        required:    true
+      f.text_field :name,
+                   autofocus:   true,
+                   placeholder: "Column name",
+                   class:       "w-full rounded-md border border-border px-3 py-2 " \
+                     "text-sm bg-surface text-text " \
+                     "placeholder:text-text-subtle " \
+                     "focus:outline-none focus:ring-2 focus:ring-primary",
+                   data: { column_form_target: "input" }
+
+      p(
+        hidden: true,
+        class:  "text-danger text-xs",
+        data:   { column_form_target: "error" }
       )
-      div(class: "flex items-center gap-3 pt-2") do
-        Button(label: @column.persisted? ? "Update column" : "Add column", type: "submit")
-        Button(label: "Cancel", variant: :outline,
-               href: board_path(@column.persisted? ? @column.board_id : @board.id))
+
+      div(class: "flex gap-2 mt-1") do
+        Button(label: @column.persisted? ? "Save" : "Add column",
+               type: "submit", size: :sm)
+        button(
+          type:  "button",
+          class: "text-sm text-text-muted hover:text-text px-2 py-1",
+          data:  { action: "click->column-form#hideForm" }
+        ) { "Cancel" }
       end
     end
   end

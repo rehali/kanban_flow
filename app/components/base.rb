@@ -4,6 +4,7 @@ class Components::Base < Phlex::HTML
   include Phlex::Rails::Helpers::Routes
   include Phlex::Rails::Helpers::FormWith
   include Phlex::Rails::Helpers::DOMID
+  include Phlex::Rails::Helpers::TurboStreamFrom
 
   register_value_helper :flash
 

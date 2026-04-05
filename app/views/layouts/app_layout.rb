@@ -29,7 +29,7 @@ class Views::Layouts::AppLayout < Components::Base
       body(class: "bg-surface text-text min-h-screen flex flex-col") do
         render_nav
         render_flash
-        main(class: "mx-auto max-w-7xl px-4 py-8 flex-1 w-full") { yield }
+        main(class: "mx-auto px-8 py-8 flex-1 w-full") { yield }
         render_footer
         Components::ToastContainer()
       end
@@ -40,7 +40,7 @@ class Views::Layouts::AppLayout < Components::Base
 
   def render_nav
     nav(class: "bg-surface border-b border-border px-4 py-3") do
-      div(class: "mx-auto max-w-7xl flex items-center justify-between") do
+      div(class: "flex items-center justify-between") do
         a(href: root_path, class: "font-bold text-lg text-text") { "KanbanFlow" }
         div(
           class: "flex items-center gap-2",
