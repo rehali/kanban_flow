@@ -12,7 +12,7 @@ class Views::Layouts::AppLayout < Components::Base
 
   def view_template
     doctype
-    html(lang: "en") do
+    html(id: "html-root", lang: "en", data: { turbo_permanent: true }) do
       head do
         meta(charset: "UTF-8")
         meta(name: "viewport", content: "width=device-width,initial-scale=1")
