@@ -1,11 +1,12 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  role: 1
+# test/fixtures/memberships.yml
+alice_admin:
   user: one
   board: one
-
-two:
   role: 1
+
+bob_member:
   user: two
-  board: two
+  board: one
+  role: 0

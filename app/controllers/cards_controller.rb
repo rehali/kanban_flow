@@ -1,6 +1,6 @@
 # app/controllers/cards_controller.rb
 class CardsController < ApplicationController
-  before_action :verify_board_access
+  before_action :set_board_and_authorize
 
   def create
     @column = Column.find(params[:column_id])
@@ -21,11 +21,13 @@ class CardsController < ApplicationController
 
   private
 
-  def verify_board_access
-    board = params[:column_id] ? column.board : card.column.board
-    unless board.user == current_user
-      redirect_to boards_path, alert: "Access denied."
-    end
+  def set_board_and_authorize
+    board = if params[:column_id]
+              Column.find(params[:column_id]).board
+            else
+              card.column.board
+            end
+    authorize! :create_card?, board
   end
 
   def card

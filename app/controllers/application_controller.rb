@@ -1,16 +1,25 @@
+# app/controllers/application_controller.rb
 class ApplicationController < ActionController::Base
   include Authentication
-  #include ToastHelper
-  # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
+
   allow_browser versions: :modern
-
-  # Changes to the importmap will invalidate the etag for HTML responses
   stale_when_importmap_changes
-
   layout false
+
+  private
 
   def current_user
     Current.session&.user
   end
   helper_method :current_user
+
+  def policy_for(board)
+    BoardPolicy.new(user: current_user, board: board)
+  end
+
+  def authorize!(policy_method, board)
+    unless policy_for(board).public_send(policy_method)
+      redirect_to boards_path, alert: "You don't have permission to do that."
+    end
+  end
 end

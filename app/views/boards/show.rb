@@ -2,8 +2,9 @@
 class Views::Boards::Show < Views::Base
   def page_title = @board.name
 
-  def initialize(board:)
+  def initialize(board:, policy:)
     @board = board
+    @policy = policy
   end
 
   def view_template
@@ -23,10 +24,21 @@ class Views::Boards::Show < Views::Base
 
     div(class: "flex items-center justify-between mt-4 mb-6") do
       h1(class: "text-2xl font-bold text-text") { @board.name }
-      Dropdown(label: "Board actions", align: :right) do |d|
-        d.item "Edit board",   url: edit_board_path(@board)
-        d.item "Delete board", url: board_path(@board), method: :delete
+      div(class: "flex items-center gap-3") do
+        MemberAvatars(board: @board)
+        PresenceBar(board: @board)
+        Link(label: "Members", href: board_members_path(@board),
+             variant: :secondary) if @policy.manage_members?
+        render_board_actions
       end
+    end
+  end
+
+  def render_board_actions
+    return unless @policy.edit_board?
+    Dropdown(label: "Board actions", align: :right) do |d|
+      d.item "Edit board",   url: edit_board_path(@board)
+      d.item "Delete board", url: board_path(@board), method: :delete if @policy.delete_board?
     end
   end
 
@@ -40,8 +52,10 @@ class Views::Boards::Show < Views::Base
         board_columns_url_value: columns_positions_path
       }
     ) do
-      @board.columns.ordered.each { |column| KanbanColumn(column: column) }
-      render_add_column
+      @board.columns.ordered.each do |column|
+        KanbanColumn(column: column, policy: @policy)
+      end
+      render_add_column if @policy.manage_columns?
     end
   end
 

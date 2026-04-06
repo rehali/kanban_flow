@@ -1,6 +1,7 @@
 # app/components/kanban_column.rb
 class Components::KanbanColumn < Components::Base
   prop :column, ::Column
+  prop :policy, _Nilable(_Any), default: -> { nil }
 
   def view_template
     div(
@@ -22,39 +23,34 @@ class Components::KanbanColumn < Components::Base
       data:  { controller: "column-form" }
     ) do
       render_column_display
-      render_column_edit_form
+      render_column_edit_form if can_manage?
     end
   end
 
   def render_column_display
     div(
-      class: "flex items-center justify-between cursor-grab " \
-        "active:cursor-grabbing",
-      data:  {
-        column_handle:      true,
-        column_form_target: "display"
-      }
+      class: "flex items-center justify-between cursor-grab active:cursor-grabbing",
+      data:  { column_handle: true, column_form_target: "display" }
     ) do
       h2(class: "font-semibold text-text text-sm flex-1") { @column.name }
       Badge(label: @column.cards.count.to_s)
-      div(class: "flex gap-1 ml-2") do
-        button(
-          type:  "button",
-          class: "text-text-muted hover:text-text p-1 rounded",
-          data:  { action: "click->column-form#showForm" }
-        ) do
-          Icon(name: :pencil, class_name: "h-3 w-3")
+      if can_manage?
+        div(class: "flex gap-1 ml-2") do
+          button(
+            type:  "button",
+            class: "text-text-muted hover:text-text p-1 rounded",
+            data:  { action: "click->column-form#showForm" }
+          ) do
+            Icon(name: :pencil, class_name: "h-3 w-3")
+          end
+          render_delete_column_button
         end
-        render_delete_column_button
       end
     end
   end
 
   def render_column_edit_form
-    div(
-      hidden: true,
-      data:   { column_form_target: "form" }
-    ) do
+    div(hidden: true, data: { column_form_target: "form" }) do
       render Views::Columns::ColumnForm.new(column: @column)
     end
   end
@@ -88,7 +84,9 @@ class Components::KanbanColumn < Components::Base
       class: "flex flex-col gap-2 min-h-8 flex-1",
       data:  { card_list: @column.id }
     ) do
-      @column.cards.ordered.each { |card| KanbanCard(card: card) }
+      @column.cards.ordered.each do |card|
+        KanbanCard(card: card, policy: @policy)
+      end
     end
   end
 
@@ -102,20 +100,18 @@ class Components::KanbanColumn < Components::Base
           card_form_target: "link",
           action:           "click->card-form#showForm"
         }
-      ) do
-        plain "+ Add card"
-      end
+      ) { "+ Add card" }
 
-      div(
-        hidden: true,
-        class:  "mt-2",
-        data:   { card_form_target: "form" }
-      ) do
+      div(hidden: true, class: "mt-2", data: { card_form_target: "form" }) do
         render Views::Cards::CardForm.new(
           card:   @column.cards.build,
           column: @column
         )
       end
     end
+  end
+
+  def can_manage?
+    @policy&.manage_columns?
   end
 end

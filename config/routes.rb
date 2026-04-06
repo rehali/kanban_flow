@@ -12,8 +12,12 @@ Rails.application.routes.draw do
   namespace :columns do resource :positions, only: [:update] end
 
   resources :boards do
-    resources :columns, shallow: true do
-      resources :cards, shallow: true
+    resources :members, only: [:index, :create, :destroy],
+              controller: "board_members"
+    resources :columns, shallow: true,
+              only: [:create, :update, :destroy] do
+      resources :cards, shallow: true,
+                only: [:create, :update, :destroy]
     end
   end
 
