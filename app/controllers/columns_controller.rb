@@ -1,5 +1,7 @@
 # app/controllers/columns_controller.rb
 class ColumnsController < ApplicationController
+  before_action :verify_board_access
+
   def create
     @board  = Board.find(params[:board_id])
     @column = @board.columns.build(column_params)
@@ -18,6 +20,13 @@ class ColumnsController < ApplicationController
   end
 
   private
+
+  def verify_board_access
+    board = params[:board_id] ? Board.find(params[:board_id]) : column.board
+    unless board.user == current_user
+      redirect_to boards_path, alert: "Access denied."
+    end
+  end
 
   def column
     @column ||= Column.find(params[:id])

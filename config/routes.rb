@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resource :session
+  resources :passwords, param: :token
+  resource  :registration, only: [:new, :create]
+
   if Rails.env.development?
     mount Lookbook::Engine, at: "/lookbook"
   end

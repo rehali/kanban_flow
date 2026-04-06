@@ -10,6 +10,11 @@ class Components::Base < Phlex::HTML
 
   extend Literal::Properties
 
+  # Make current_user available in all components
+  def current_user
+    Current.session&.user
+  end
+
   private
 
   def class_names(*classes)

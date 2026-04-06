@@ -39,20 +39,39 @@ class Views::Layouts::AppLayout < Components::Base
   private
 
   def render_nav
-    nav(class: "bg-surface border-b border-border px-4 py-3") do
-      div(class: "flex items-center justify-between") do
-        a(href: root_path, class: "font-bold text-lg text-text") { "KanbanFlow" }
-        div(
-          class: "flex items-center gap-2",
-          data:  { controller: "theme-toggle" }
-        ) do
-          ThemeSelector()
-          ThemeToggle()
+    nav(class: "bg-surface border-b border-border px-8 py-3") do
+      div(class: "mx-auto flex items-center justify-between") do
+        a(href: root_path,
+          class: "font-bold text-lg text-text") { "KanbanFlow" }
+
+        div(class: "flex items-center gap-3") do
+          render_theme_controls
+          render_user_menu
         end
       end
     end
   end
 
+  def render_theme_controls
+    div(class: "flex items-center", data: { controller: "theme-toggle" }) do
+      ThemeSelector()
+      ThemeToggle()
+    end
+  end
+
+  def render_user_menu
+    if current_user
+      Dropdown(label: current_user.name, align: :right) do |d|
+        d.item "Your boards", url: boards_path
+        d.item "Sign out",    url: session_path, method: :delete
+      end
+    else
+      a(href: new_session_path,
+        class: "text-sm text-primary hover:text-primary-hover") do
+        plain "Sign in"
+      end
+    end
+  end
 
   def render_footer
     footer(class: "border-t border-gray-200 mt-12 py-4 px-4") do

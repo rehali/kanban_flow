@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include Authentication
+  #include ToastHelper
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
 
@@ -7,11 +9,8 @@ class ApplicationController < ActionController::Base
 
   layout false
 
-  private
-
   def current_user
-    @current_user ||= User.first
+    Current.session&.user
   end
-
   helper_method :current_user
 end
